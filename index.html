@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Quiz</title>
+</head>
+<body>
+    <section>
+        <h1>Quiz de personagens</h1>
+        <h2 id="question"></h3>
+        <h2>---------Options-----------</h2>
+            <div>
+                1 - <button type="button" class="alternative" id="options0" value="0"></button>
+            </div>
+            <div>
+                2 - <button type="button" class="alternative" id="options1" value="1"></button>
+            </div>
+            <div>
+                3 - <button type="button" class="alternative" id="options2" value="2"></button>
+            </div>
+            <div>
+                4 - <button type="button" class="alternative" id="options3" value="3"></button>
+            </div>
+            <br>
+            <h3 id="statusAnswer"></h3>
+        
+            <input type="button" id="reload" value="Reload">
+        
+    </section>
+    <script>
+        
+        
+        const questions = [
+            'Quem descobriu o Brasil?',
+            "Quem pintou a Monalisa?",
+            "A que temperatura a água ferve?",
+            "Em que ano nasceu a atual Constituição Federal do Brasil?"
+        ];
+        const options = [
+            ["Tomé de Sousa", "Cristovão Colombo", "Pedro Alvares Cabral", "Pero Vaz de Caminha"],
+            ["Michelangelo", "Leonardo da Vinci", "Rafael Sanzio", "Sandro Botticelli"],
+            ["95ºC", "371ºK", "212ºF", "0ºC"],
+            ["1985","1973", "1998", "1988"]
+        ];
+        const correctAnswers = [2,1,2,3];
+        
+        let reloadButton = document.getElementById('reload')
+        reloadButton.style.display = "none";
+        let nowQuestion = Math.floor(Math.random() * questions.length);
+        
+        generateQuestions();
+        selectButton();
+
+        function generateQuestions(){
+            
+            document.getElementById("question").innerHTML = questions[nowQuestion];
+            
+            const optionsContainer = document.querySelectorAll('button');
+            optionsContainer.forEach((element,index) =>{element.textContent = options[nowQuestion][index]});
+            
+        }
+        
+        function selectButton(){
+            const alternatives = document.querySelectorAll('.alternative');
+        
+            alternatives.forEach(button =>{
+                button.addEventListener('click', () => {
+                    const answer = button.value;0 
+                    checkAnswer(answer);
+            })
+        })
+        }
+
+        function checkAnswer(answer){
+            answer = parseInt(answer);
+            let statusAnswer = document.getElementById("statusAnswer");
+            if(answer == correctAnswers[nowQuestion]){
+                statusAnswer.innerHTML = "Acertou!!!"
+            }
+            else{
+                console.log
+                statusAnswer.innerHTML = `Você errou, a resposta correta é: ${options[nowQuestion][correctAnswers[nowQuestion]]}`
+            }
+            reloadButton.style.display = "block";
+        }
+
+        document.getElementById('reload').addEventListener('click', () => location.reload())
+    </script>
+</body>
+</html>
